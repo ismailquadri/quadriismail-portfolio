@@ -18,7 +18,7 @@ module.exports = {
         border: '#E0E0DC',
       },
       fontFamily: {
-        sans: ['Inter', 'sans-serif'],
+        sans: ['var(--font-dm-sans)', 'DM Sans', 'sans-serif'],
       },
       letterSpacing: {
         tighter: '-0.03em',

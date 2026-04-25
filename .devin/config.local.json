@@ -4,7 +4,11 @@
       "Exec(mkdir)",
       "Exec(touch)",
       "Exec(npm run)",
-      "Exec(git add)"
+      "Exec(git add)",
+      "Exec(cat)",
+      "Exec(npm install)",
+      "Exec(node)",
+      "Exec(git commit)"
     ]
   }
 }
