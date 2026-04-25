@@ -3,7 +3,8 @@
     "allow": [
       "Exec(mkdir)",
       "Exec(touch)",
-      "Exec(npm run)"
+      "Exec(npm run)",
+      "Exec(git add)"
     ]
   }
 }

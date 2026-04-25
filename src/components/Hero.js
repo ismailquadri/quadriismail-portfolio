@@ -1,129 +1,238 @@
-import { motion, useScroll, useTransform } from 'framer-motion';
-import { useRef } from 'react';
+import { useRef } from 'react'
+import { motion, useScroll, useTransform } from 'framer-motion'
+
+const E = [0.22, 1, 0.36, 1]
 
 export default function Hero() {
-  const ref = useRef(null);
-  const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end start'] });
-  const y = useTransform(scrollYProgress, [0, 1], [0, -160]);
-  const opacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
+  const ref = useRef(null)
+  const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end start'] })
+  const y = useTransform(scrollYProgress, [0, 1], [0, -140])
+  const opacity = useTransform(scrollYProgress, [0, 0.65], [1, 0])
 
   return (
-    <section ref={ref} style={{ minHeight: '100vh', padding: '0 48px', display: 'flex', alignItems: 'center', position: 'relative', overflow: 'hidden' }}>
+    <section
+      ref={ref}
+      style={{
+        minHeight: '100vh',
+        backgroundColor: '#f5f5f3',
+        display: 'flex',
+        alignItems: 'center',
+        position: 'relative',
+        overflow: 'hidden',
+      }}
+    >
+      {/* Faint dot-grid background */}
+      <div
+        aria-hidden="true"
+        style={{
+          position: 'absolute',
+          inset: 0,
+          backgroundImage:
+            'radial-gradient(circle, rgba(19,73,1,0.07) 1px, transparent 1px)',
+          backgroundSize: '32px 32px',
+          pointerEvents: 'none',
+        }}
+      />
 
-      {/* Subtle grain texture */}
-      <div style={{
-        position: 'absolute', inset: 0, zIndex: 0,
-        backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E")`,
-        backgroundRepeat: 'repeat',
-        pointerEvents: 'none',
-      }} />
-
-      <motion.div style={{ y, opacity, position: 'relative', zIndex: 1, maxWidth: '1280px', margin: '0 auto', width: '100%', paddingTop: '72px' }}>
-
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.1 }}
-          style={{ marginBottom: '32px' }}
-        >
-          <span style={{
-            fontSize: '0.8rem', fontWeight: 600, color: '#134901',
-            letterSpacing: '0.12em', textTransform: 'uppercase',
-            display: 'inline-flex', alignItems: 'center', gap: '8px',
-          }}>
-            <span style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#CCFF00', display: 'inline-block', boxShadow: '0 0 8px #CCFF00' }} />
-            Available for senior roles & consulting
-          </span>
-        </motion.div>
-
-        <div style={{ overflow: 'hidden', marginBottom: '8px' }}>
-          <motion.h1
-            initial={{ y: '100%' }}
-            animate={{ y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-            style={{
-              fontSize: 'clamp(3.5rem, 9vw, 8.5rem)',
-              fontWeight: 900, lineHeight: 0.95,
-              letterSpacing: '-0.04em', color: '#0F0F0F', margin: 0,
-            }}
+      <motion.div
+        style={{ y, opacity, width: '100%', position: 'relative', zIndex: 1 }}
+        className="wrap"
+      >
+        <div style={{ width: '100%', paddingTop: '68px', paddingBottom: '80px', position: 'relative' }}>
+          {/* Status pill */}
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.1, ease: E }}
+            style={{ marginBottom: '40px' }}
           >
-            Senior Product
-          </motion.h1>
-        </div>
-        <div style={{ overflow: 'hidden', marginBottom: '48px' }}>
-          <motion.h1
-            initial={{ y: '100%' }}
-            animate={{ y: 0 }}
-            transition={{ duration: 0.8, delay: 0.32, ease: [0.22, 1, 0.36, 1] }}
-            style={{
-              fontSize: 'clamp(3.5rem, 9vw, 8.5rem)',
-              fontWeight: 900, lineHeight: 0.95,
-              letterSpacing: '-0.04em', color: '#134901', margin: 0,
-            }}
-          >
-            Designer.
-          </motion.h1>
-        </div>
+            <span style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '8px',
+              fontSize: '0.78rem',
+              fontWeight: 600,
+              color: '#555',
+              letterSpacing: '0.06em',
+              textTransform: 'uppercase',
+            }}>
+              <span style={{
+                width: '7px',
+                height: '7px',
+                borderRadius: '50%',
+                backgroundColor: '#CCFF00',
+                boxShadow: '0 0 0 3px rgba(204,255,0,0.25)',
+                display: 'inline-block',
+                flexShrink: 0,
+              }} />
+              Available for senior roles & consulting
+            </span>
+          </motion.div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.55, ease: [0.22, 1, 0.36, 1] }}
-          style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', flexWrap: 'wrap', gap: '48px' }}
-        >
-          <p style={{ fontSize: '1.15rem', color: '#555', lineHeight: 1.7, maxWidth: '480px', margin: 0 }}>
-            6+ years shipping transformative digital products across
-            Fintech, GovTech, and AI — serving 40M+ users worldwide.
-          </p>
-
-          <div style={{ display: 'flex', gap: '48px' }}>
-            {[
-              { value: '40M+', label: 'Users served' },
-              { value: '6+', label: 'Years' },
-              { value: '5', label: 'Industries' },
-            ].map((s) => (
-              <div key={s.value}>
-                <div style={{ fontSize: '2.25rem', fontWeight: 900, color: '#0F0F0F', lineHeight: 1, letterSpacing: '-0.03em' }}>{s.value}</div>
-                <div style={{ fontSize: '0.8rem', color: '#999', marginTop: '4px', fontWeight: 500 }}>{s.label}</div>
-              </div>
-            ))}
+          {/* Headline — clip reveal */}
+          <div style={{ overflow: 'hidden', marginBottom: '4px' }}>
+            <motion.h1
+              initial={{ y: '102%' }}
+              animate={{ y: 0 }}
+              transition={{ duration: 0.9, delay: 0.2, ease: E }}
+              style={{
+                fontSize: 'clamp(3.2rem, 8.5vw, 8rem)',
+                fontWeight: 900,
+                lineHeight: 0.95,
+                letterSpacing: '-0.04em',
+                color: '#0F0F0F',
+                margin: 0,
+              }}
+            >
+              Senior Product
+            </motion.h1>
           </div>
-        </motion.div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.7 }}
-          style={{ marginTop: '64px', display: 'flex', gap: '16px', flexWrap: 'wrap' }}
-        >
-          <motion.a
-            href="mailto:quadrihorlar@gmail.com"
-            whileHover={{ scale: 1.03 }}
-            whileTap={{ scale: 0.97 }}
+          <div style={{ overflow: 'hidden', marginBottom: '52px' }}>
+            <motion.h1
+              initial={{ y: '102%' }}
+              animate={{ y: 0 }}
+              transition={{ duration: 0.9, delay: 0.32, ease: E }}
+              style={{
+                fontSize: 'clamp(3.2rem, 8.5vw, 8rem)',
+                fontWeight: 900,
+                lineHeight: 0.95,
+                letterSpacing: '-0.04em',
+                color: '#134901',
+                margin: 0,
+              }}
+            >
+              Designer.
+            </motion.h1>
+          </div>
+
+          {/* Subrow — bio + stats side by side */}
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.52, ease: E }}
             style={{
-              fontSize: '0.9rem', fontWeight: 700, color: '#fff',
-              backgroundColor: '#134901', padding: '14px 32px',
-              borderRadius: '100px', textDecoration: 'none',
+              display: 'flex',
+              alignItems: 'flex-start',
+              justifyContent: 'space-between',
+              flexWrap: 'wrap',
+              gap: '40px',
             }}
           >
-            Book a consultation
-          </motion.a>
-          <motion.a
-            href="#work"
-            whileHover={{ scale: 1.03 }}
-            whileTap={{ scale: 0.97 }}
+            <p style={{
+              fontSize: '1.1rem',
+              color: '#5a5a5a',
+              lineHeight: 1.75,
+              maxWidth: '440px',
+              margin: 0,
+            }}>
+              6+ years shipping transformative digital products across
+              Fintech, GovTech, AI & Web3 — serving{' '}
+              <strong style={{ color: '#0F0F0F', fontWeight: 700 }}>40M+ users</strong>{' '}
+              in 180+ countries.
+            </p>
+
+            <div style={{ display: 'flex', gap: '40px', flexShrink: 0 }}>
+              {[
+                { n: '40M+', l: 'Users served' },
+                { n: '6+',   l: 'Years' },
+                { n: '180+', l: 'Countries' },
+              ].map((s) => (
+                <div key={s.n}>
+                  <div style={{
+                    fontSize: '2rem',
+                    fontWeight: 900,
+                    color: '#0F0F0F',
+                    lineHeight: 1,
+                    letterSpacing: '-0.03em',
+                  }}>
+                    {s.n}
+                  </div>
+                  <div style={{ fontSize: '0.78rem', color: '#999', marginTop: '5px', fontWeight: 500 }}>
+                    {s.l}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </motion.div>
+
+          {/* CTAs */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.68, ease: E }}
+            style={{ marginTop: '52px', display: 'flex', gap: '14px', flexWrap: 'wrap', alignItems: 'center' }}
+          >
+            <motion.a
+              href="mailto:quadrihorlar@gmail.com"
+              whileHover={{ backgroundColor: '#0d3801', scale: 1.03 }}
+              whileTap={{ scale: 0.97 }}
+              transition={{ type: 'spring', stiffness: 400, damping: 28 }}
+              style={{
+                fontSize: '0.875rem',
+                fontWeight: 700,
+                color: '#fff',
+                backgroundColor: '#134901',
+                padding: '13px 30px',
+                borderRadius: '100px',
+                textDecoration: 'none',
+                display: 'inline-block',
+              }}
+            >
+              Book a consultation
+            </motion.a>
+
+            <motion.a
+              href="#work"
+              whileHover={{ borderColor: '#0F0F0F', color: '#0F0F0F' }}
+              whileTap={{ scale: 0.97 }}
+              transition={{ duration: 0.15 }}
+              style={{
+                fontSize: '0.875rem',
+                fontWeight: 600,
+                color: '#777',
+                backgroundColor: 'transparent',
+                padding: '13px 30px',
+                borderRadius: '100px',
+                textDecoration: 'none',
+                display: 'inline-block',
+                border: '1.5px solid #D4D4D0',
+              }}
+            >
+              View work ↓
+            </motion.a>
+          </motion.div>
+
+          {/* Scroll hint */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1.4, duration: 0.8 }}
             style={{
-              fontSize: '0.9rem', fontWeight: 700, color: '#0F0F0F',
-              backgroundColor: 'transparent', padding: '14px 32px',
-              borderRadius: '100px', textDecoration: 'none',
-              border: '1.5px solid #D0D0CC',
+              position: 'absolute',
+              bottom: '40px',
+              right: 0,
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              gap: '6px',
             }}
           >
-            View work ↓
-          </motion.a>
-        </motion.div>
-
+            <motion.div
+              animate={{ y: [0, 8, 0] }}
+              transition={{ duration: 1.6, repeat: Infinity, ease: 'easeInOut' }}
+              style={{
+                width: '1px',
+                height: '40px',
+                backgroundColor: '#ccc',
+              }}
+            />
+            <span style={{ fontSize: '0.65rem', color: '#bbb', fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase', writingMode: 'vertical-rl' }}>
+              Scroll
+            </span>
+          </motion.div>
+        </div>
       </motion.div>
     </section>
-  );
+  )
 }
