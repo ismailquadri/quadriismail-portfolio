@@ -15,7 +15,13 @@
       "Exec(git ls-remote)",
       "Exec(git ls-files)",
       "Exec(rm)",
-      "Exec(git push)"
+      "Exec(git push)",
+      "Exec(cp)",
+      "Exec(mv)",
+      "Exec(git status)",
+      "Exec(git diff)",
+      "Exec(git log)",
+      "Exec(git rm)"
     ]
   }
 }
