@@ -2,45 +2,61 @@ import { motion } from 'framer-motion'
 
 const E = [0.22, 1, 0.36, 1]
 
-/* Companies / organisations Quadri has worked with or for */
-const CLIENTS = [
+const ROW_1 = [
   'Ministry of Hajj & Umrah',
-  'Federal Govt of Nigeria',
-  'Lean Business Services',
   'Purchasa',
+  'Lean Business Services',
   'Chisquares',
   'Nusuk',
-  '40M+ Users',
-  '180+ Countries',
+  'Federal Govt of Nigeria',
+]
+const ROW_2 = [
   'Fintech',
   'GovTech',
   'AI Platforms',
   'Web3',
+  '40M+ Users',
+  '180+ Countries',
+  'SaaS',
+  'EdTech',
 ]
 
-/* We duplicate the list so the CSS scroll loop is seamless */
-const TRACK = [...CLIENTS, ...CLIENTS]
+const TRACK_1 = [...ROW_1, ...ROW_1]
+const TRACK_2 = [...ROW_2, ...ROW_2]
+
+function Dot() {
+  return (
+    <span style={{
+      display: 'inline-block',
+      width: '6px',
+      height: '6px',
+      borderRadius: '50%',
+      backgroundColor: '#CCFF00',
+      opacity: 0.5,
+      margin: '0 0.6em',
+      flexShrink: 0,
+      verticalAlign: 'middle',
+    }} />
+  )
+}
 
 export default function TrustedMarquee() {
   return (
     <section
       style={{
         backgroundColor: '#0A0A0A',
-        padding: '88px 0',
+        padding: '72px 0',
         overflow: 'hidden',
         position: 'relative',
       }}
     >
-      {/* Section label */}
+      {/* Label */}
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
+        initial={{ opacity: 0, y: 16 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.5 }}
-        transition={{ duration: 0.6, ease: E }}
-        style={{
-          textAlign: 'center',
-          marginBottom: '52px',
-        }}
+        transition={{ duration: 0.5, ease: E }}
+        style={{ textAlign: 'center', marginBottom: '40px' }}
       >
         <span style={{
           fontSize: '0.68rem',
@@ -49,83 +65,61 @@ export default function TrustedMarquee() {
           textTransform: 'uppercase',
           letterSpacing: '0.14em',
         }}>
-          Industries & organisations
+          Trusted by teams across industries
         </span>
       </motion.div>
 
-      {/* 3D perspective wrapper */}
-      <div
-        style={{
-          perspective: '1200px',
-          perspectiveOrigin: 'center 60%',
-        }}
-      >
+      {/* Row 1 — scrolls left */}
+      <div style={{ marginBottom: '12px' }}>
         <div
-          style={{
-            transform: 'rotateX(8deg) rotateY(-18deg)',
-            transformStyle: 'preserve-3d',
-          }}
+          className="marquee-track"
+          style={{ display: 'flex', whiteSpace: 'nowrap', willChange: 'transform' }}
         >
-          {/* Marquee track */}
-          <div
-            className="marquee-track"
-            style={{
-              display: 'flex',
-              whiteSpace: 'nowrap',
-              willChange: 'transform',
-            }}
-          >
-            {TRACK.map((item, i) => {
-              /* Simulate depth-based blur: items towards edges get slightly blurred */
-              const norm = Math.abs((i % CLIENTS.length) / (CLIENTS.length - 1) - 0.5) * 2
-              const blur = norm * 3
-              const opacity = 1 - norm * 0.35
-
-              return (
-                <span
-                  key={i}
-                  style={{
-                    display: 'inline-block',
-                    fontSize: 'clamp(2.2rem, 5vw, 4.8rem)',
-                    fontWeight: 800,
-                    letterSpacing: '-0.03em',
-                    color: '#fafafa',
-                    paddingRight: '1.2em',
-                    filter: `blur(${blur}px)`,
-                    opacity,
-                    userSelect: 'none',
-                  }}
-                >
-                  {item}
-                </span>
-              )
-            })}
-          </div>
+          {TRACK_1.map((item, i) => (
+            <span key={`r1-${i}`} style={{ display: 'inline-flex', alignItems: 'center' }}>
+              <span style={{
+                fontSize: 'clamp(1.8rem, 4.5vw, 4rem)',
+                fontWeight: 800,
+                letterSpacing: '-0.03em',
+                color: 'rgba(255,255,255,0.85)',
+                userSelect: 'none',
+              }}>
+                {item}
+              </span>
+              <Dot />
+            </span>
+          ))}
         </div>
       </div>
 
-      {/* Left + right edge fades */}
-      <div
-        aria-hidden
-        style={{
-          position: 'absolute',
-          inset: 0,
-          pointerEvents: 'none',
-          background:
-            'linear-gradient(90deg, #0A0A0A 0%, transparent 16%, transparent 84%, #0A0A0A 100%)',
-        }}
-      />
-      {/* Top + bottom fades */}
-      <div
-        aria-hidden
-        style={{
-          position: 'absolute',
-          inset: 0,
-          pointerEvents: 'none',
-          background:
-            'linear-gradient(180deg, #0A0A0A 0%, transparent 22%, transparent 78%, #0A0A0A 100%)',
-        }}
-      />
+      {/* Row 2 — scrolls right (reverse) */}
+      <div>
+        <div
+          className="marquee-track-reverse"
+          style={{ display: 'flex', whiteSpace: 'nowrap', willChange: 'transform' }}
+        >
+          {TRACK_2.map((item, i) => (
+            <span key={`r2-${i}`} style={{ display: 'inline-flex', alignItems: 'center' }}>
+              <span style={{
+                fontSize: 'clamp(1.8rem, 4.5vw, 4rem)',
+                fontWeight: 800,
+                letterSpacing: '-0.03em',
+                color: 'rgba(255,255,255,0.35)',
+                userSelect: 'none',
+              }}>
+                {item}
+              </span>
+              <Dot />
+            </span>
+          ))}
+        </div>
+      </div>
+
+      {/* Edge fades */}
+      <div aria-hidden style={{
+        position: 'absolute', inset: 0, pointerEvents: 'none',
+        background: 'linear-gradient(90deg, #0A0A0A 0%, transparent 10%, transparent 90%, #0A0A0A 100%)',
+      }} />
     </section>
   )
 }

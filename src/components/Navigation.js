@@ -1,101 +1,127 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion, AnimatePresence, useMotionValueEvent, useScroll } from 'framer-motion'
+
+const E = [0.22, 1, 0.36, 1]
+
+const NAV_LINKS = [
+  { label: 'Work', href: '/#work' },
+  { label: 'About', href: '/#about' },
+  { label: 'Services', href: '/#services' },
+]
+
+const MOBILE_LINKS = [
+  ...NAV_LINKS,
+  { label: "Let's talk", href: 'mailto:quadrihorlar@gmail.com' },
+]
 
 export default function Navigation() {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
+  const [hidden, setHidden] = useState(false)
+  const { scrollY } = useScroll()
+  const lastY = useRef(0)
+
+  /* Show/hide nav on scroll direction */
+  useMotionValueEvent(scrollY, 'change', (latest) => {
+    const diff = latest - lastY.current
+    lastY.current = latest
+    if (latest < 80) { setHidden(false); setScrolled(false); return }
+    setScrolled(true)
+    if (diff > 8) setHidden(true)
+    if (diff < -4) setHidden(false)
+  })
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 40)
-    window.addEventListener('scroll', onScroll, { passive: true })
-    return () => window.removeEventListener('scroll', onScroll)
-  }, [])
-
-  useEffect(() => {
-    if (menuOpen) {
-      document.body.style.overflow = 'hidden'
-    } else {
-      document.body.style.overflow = ''
-    }
+    if (menuOpen) document.body.style.overflow = 'hidden'
+    else document.body.style.overflow = ''
     return () => { document.body.style.overflow = '' }
   }, [menuOpen])
 
   return (
     <>
       <motion.header
-        initial={{ opacity: 0, y: -12 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+        initial={{ y: -100 }}
+        animate={{ y: hidden && !menuOpen ? -100 : 0 }}
+        transition={{ duration: 0.45, ease: E }}
         style={{
           position: 'fixed',
           top: 0,
           left: 0,
           right: 0,
           zIndex: 100,
-          height: '68px',
+          height: '72px',
           display: 'flex',
           alignItems: 'center',
-          backgroundColor: scrolled ? 'rgba(245,245,243,0.88)' : 'transparent',
-          backdropFilter: scrolled ? 'blur(20px)' : 'none',
-          borderBottom: scrolled ? '1px solid rgba(0,0,0,0.06)' : 'none',
-          transition: 'background-color 0.4s ease, backdrop-filter 0.4s ease, border-bottom 0.4s ease',
+          backgroundColor: scrolled ? 'rgba(245,245,243,0.82)' : 'transparent',
+          backdropFilter: scrolled ? 'blur(24px) saturate(1.2)' : 'none',
+          WebkitBackdropFilter: scrolled ? 'blur(24px) saturate(1.2)' : 'none',
+          borderBottom: scrolled ? '1px solid rgba(0,0,0,0.04)' : '1px solid transparent',
+          transition: 'background-color 0.5s ease, backdrop-filter 0.5s ease, border-bottom 0.5s ease',
         }}
       >
         <div className="wrap" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}>
-          {/* Wordmark */}
+          {/* Logo — magnetic */}
           <Link href="/" style={{ textDecoration: 'none' }}>
             <motion.span
-              whileHover={{ opacity: 0.7 }}
-              transition={{ duration: 0.2 }}
+              whileHover={{ scale: 1.08, rotate: -2 }}
+              whileTap={{ scale: 0.95 }}
+              transition={{ type: 'spring', stiffness: 400, damping: 20 }}
               style={{
                 fontWeight: 900,
-                fontSize: '1.1rem',
+                fontSize: '1.2rem',
                 color: '#134901',
-                letterSpacing: '-0.03em',
+                letterSpacing: '-0.04em',
                 cursor: 'pointer',
+                display: 'inline-block',
               }}
             >
               QI.
             </motion.span>
           </Link>
 
-          {/* Desktop links */}
-          <nav style={{ display: 'flex', alignItems: 'center', gap: '36px' }} aria-label="Main navigation">
-            {[
-              { label: 'Work', href: '/#work' },
-              { label: 'About', href: '/#about' },
-              { label: 'Services', href: '/#services' },
-            ].map((link) => (
-              <Link key={link.label} href={link.href} style={{ textDecoration: 'none' }}
-                className="hidden md:block"
-              >
+          {/* Desktop nav */}
+          <nav style={{ display: 'flex', alignItems: 'center', gap: '40px' }} aria-label="Main navigation">
+            {NAV_LINKS.map((link, i) => (
+              <Link key={link.label} href={link.href} style={{ textDecoration: 'none' }} className="hidden md:block">
                 <motion.span
-                  whileHover={{ color: '#0F0F0F' }}
-                  transition={{ duration: 0.15 }}
-                  style={{ fontSize: '0.875rem', fontWeight: 500, color: '#777', cursor: 'pointer' }}
+                  initial={{ opacity: 0, y: -8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4, delay: 0.15 + i * 0.06, ease: E }}
+                  whileHover={{ color: '#0F0F0F', y: -1 }}
+                  style={{
+                    fontSize: '0.85rem',
+                    fontWeight: 500,
+                    color: '#888',
+                    cursor: 'pointer',
+                    display: 'inline-block',
+                    position: 'relative',
+                  }}
                 >
                   {link.label}
                 </motion.span>
               </Link>
             ))}
 
-            {/* CTA — desktop */}
+            {/* CTA */}
             <motion.a
               href="mailto:quadrihorlar@gmail.com"
-              whileHover={{ backgroundColor: '#0d3801', scale: 1.02 }}
-              whileTap={{ scale: 0.97 }}
-              transition={{ type: 'spring', stiffness: 400, damping: 28 }}
+              initial={{ opacity: 0, y: -8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, delay: 0.35, ease: E }}
+              whileHover={{ backgroundColor: '#0d3801', scale: 1.03 }}
+              whileTap={{ scale: 0.96 }}
               className="hidden md:inline-flex"
               style={{
-                fontSize: '0.85rem',
+                fontSize: '0.82rem',
                 fontWeight: 700,
                 color: '#fff',
                 backgroundColor: '#134901',
-                padding: '9px 22px',
+                padding: '10px 24px',
                 borderRadius: '100px',
                 textDecoration: 'none',
                 alignItems: 'center',
+                letterSpacing: '-0.01em',
               }}
             >
               Let's talk
@@ -114,82 +140,92 @@ export default function Navigation() {
                 display: 'flex',
                 flexDirection: 'column',
                 gap: '5px',
+                zIndex: 110,
               }}
             >
               <motion.span
                 animate={menuOpen ? { rotate: 45, y: 7 } : { rotate: 0, y: 0 }}
                 transition={{ type: 'spring', stiffness: 400, damping: 28 }}
-                style={{ display: 'block', width: '20px', height: '1.5px', backgroundColor: '#0F0F0F', transformOrigin: 'center' }}
+                style={{ display: 'block', width: '22px', height: '1.5px', backgroundColor: menuOpen ? '#fff' : '#0F0F0F', transformOrigin: 'center', transition: 'background-color 0.3s' }}
               />
               <motion.span
                 animate={menuOpen ? { opacity: 0, scaleX: 0 } : { opacity: 1, scaleX: 1 }}
                 transition={{ duration: 0.18 }}
-                style={{ display: 'block', width: '20px', height: '1.5px', backgroundColor: '#0F0F0F' }}
+                style={{ display: 'block', width: '22px', height: '1.5px', backgroundColor: menuOpen ? '#fff' : '#0F0F0F' }}
               />
               <motion.span
                 animate={menuOpen ? { rotate: -45, y: -7 } : { rotate: 0, y: 0 }}
                 transition={{ type: 'spring', stiffness: 400, damping: 28 }}
-                style={{ display: 'block', width: '20px', height: '1.5px', backgroundColor: '#0F0F0F', transformOrigin: 'center' }}
+                style={{ display: 'block', width: '22px', height: '1.5px', backgroundColor: menuOpen ? '#fff' : '#0F0F0F', transformOrigin: 'center', transition: 'background-color 0.3s' }}
               />
             </button>
           </nav>
         </div>
       </motion.header>
 
-      {/* Mobile fullscreen menu */}
+      {/* Mobile fullscreen menu — cinematic */}
       <AnimatePresence>
         {menuOpen && (
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.25 }}
+            initial={{ clipPath: 'circle(0% at calc(100% - 40px) 36px)' }}
+            animate={{ clipPath: 'circle(150% at calc(100% - 40px) 36px)' }}
+            exit={{ clipPath: 'circle(0% at calc(100% - 40px) 36px)' }}
+            transition={{ duration: 0.65, ease: E }}
             style={{
               position: 'fixed',
               inset: 0,
-              zIndex: 90,
-              backgroundColor: '#f5f5f3',
+              zIndex: 99,
+              backgroundColor: '#0A0A0A',
               display: 'flex',
               flexDirection: 'column',
               justifyContent: 'center',
               padding: '0 32px',
             }}
           >
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-              {[
-                { label: 'Work', href: '/#work' },
-                { label: 'About', href: '/#about' },
-                { label: 'Services', href: '/#services' },
-                { label: "Let's talk", href: 'mailto:quadrihorlar@gmail.com' },
-              ].map((link, i) => (
-                <motion.div
-                  key={link.label}
-                  initial={{ opacity: 0, x: -16 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: i * 0.07, duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-                >
-                  <Link
-                    href={link.href}
-                    onClick={() => setMenuOpen(false)}
-                    style={{
-                      display: 'block',
-                      fontSize: 'clamp(2rem, 10vw, 3.5rem)',
-                      fontWeight: 900,
-                      color: '#0F0F0F',
-                      textDecoration: 'none',
-                      letterSpacing: '-0.03em',
-                      lineHeight: 1.15,
-                      padding: '8px 0',
-                    }}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+              {MOBILE_LINKS.map((link, i) => (
+                <div key={link.label} style={{ overflow: 'hidden' }}>
+                  <motion.div
+                    initial={{ y: '110%' }}
+                    animate={{ y: 0 }}
+                    exit={{ y: '110%' }}
+                    transition={{ duration: 0.55, delay: 0.15 + i * 0.06, ease: E }}
                   >
-                    {link.label}
-                  </Link>
-                </motion.div>
+                    <Link
+                      href={link.href}
+                      onClick={() => setMenuOpen(false)}
+                      style={{
+                        display: 'block',
+                        fontSize: 'clamp(2.2rem, 10vw, 4rem)',
+                        fontWeight: 800,
+                        color: '#fff',
+                        textDecoration: 'none',
+                        letterSpacing: '-0.04em',
+                        lineHeight: 1.2,
+                        padding: '8px 0',
+                      }}
+                    >
+                      {link.label}
+                    </Link>
+                  </motion.div>
+                </div>
               ))}
             </div>
-            <div style={{ position: 'absolute', bottom: '48px', left: '32px' }}>
-              <p style={{ fontSize: '0.8rem', color: '#999', fontWeight: 500 }}>quadriismail.com</p>
-            </div>
+
+            {/* Bottom info */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ delay: 0.5, duration: 0.4 }}
+              style={{ position: 'absolute', bottom: '48px', left: '32px', right: '32px', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}
+            >
+              <div>
+                <p style={{ fontSize: '0.72rem', color: '#444', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '6px' }}>Get in touch</p>
+                <a href="mailto:quadrihorlar@gmail.com" style={{ fontSize: '0.85rem', color: '#888', textDecoration: 'none' }}>quadrihorlar@gmail.com</a>
+              </div>
+              <p style={{ fontSize: '0.72rem', color: '#333', fontWeight: 500 }}>Lagos, Nigeria</p>
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
