@@ -12,7 +12,7 @@ const NAV_LINKS = [
 
 const MOBILE_LINKS = [
   ...NAV_LINKS,
-  { label: "Let's talk", href: 'mailto:quadrihorlar@gmail.com' },
+  { label: "Let's talk", href: 'mailto:me@quadriismail.com' },
 ]
 
 export default function Navigation() {
@@ -105,7 +105,7 @@ export default function Navigation() {
 
             {/* CTA */}
             <motion.a
-              href="mailto:quadrihorlar@gmail.com"
+              href="mailto:me@quadriismail.com"
               initial={{ opacity: 0, y: -8 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4, delay: 0.35, ease: E }}
@@ -222,7 +222,7 @@ export default function Navigation() {
             >
               <div>
                 <p style={{ fontSize: '0.72rem', color: '#444', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '6px' }}>Get in touch</p>
-                <a href="mailto:quadrihorlar@gmail.com" style={{ fontSize: '0.85rem', color: '#888', textDecoration: 'none' }}>quadrihorlar@gmail.com</a>
+                <a href="mailto:me@quadriismail.com" style={{ fontSize: '0.85rem', color: '#888', textDecoration: 'none' }}>me@quadriismail.com</a>
               </div>
               <p style={{ fontSize: '0.72rem', color: '#333', fontWeight: 500 }}>Lagos, Nigeria</p>
             </motion.div>

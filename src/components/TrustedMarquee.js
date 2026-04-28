@@ -1,44 +1,22 @@
 import { motion } from 'framer-motion'
+import Image from 'next/image'
 
 const E = [0.22, 1, 0.36, 1]
 
-const ROW_1 = [
-  'Ministry of Hajj & Umrah',
-  'Purchasa',
-  'Lean Business Services',
-  'Chisquares',
-  'Nusuk',
-  'Federal Govt of Nigeria',
-]
-const ROW_2 = [
-  'Fintech',
-  'GovTech',
-  'AI Platforms',
-  'Web3',
-  '40M+ Users',
-  '180+ Countries',
-  'SaaS',
-  'EdTech',
+const LOGOS = [
+  { src: '/images/logos/ministry-of-hajj.svg', alt: 'Ministry of Hajj & Umrah', width: 140 },
+  { src: '/images/logos/FG.svg', alt: 'Federal Government of Nigeria', width: 140 },
+  { src: '/images/logos/Lean.svg', alt: 'Lean Business Services', width: 120 },
+  { src: '/images/logos/Chisquares.svg', alt: 'Chisquares', width: 130 },
+  { src: '/images/logos/AXN.svg', alt: 'AXN', width: 100 },
+  { src: '/images/logos/Fablab.svg', alt: 'Fablab', width: 110 },
+  { src: '/images/logos/Lenvra.svg', alt: 'Lenvra', width: 110 },
+  { src: '/images/logos/Medicarri.svg', alt: 'Medicarri', width: 120 },
+  { src: '/images/logos/Odel.svg', alt: 'Odel', width: 100 },
+  { src: '/images/logos/ryno.svg', alt: 'Ryno', width: 100 },
 ]
 
-const TRACK_1 = [...ROW_1, ...ROW_1]
-const TRACK_2 = [...ROW_2, ...ROW_2]
-
-function Dot() {
-  return (
-    <span style={{
-      display: 'inline-block',
-      width: '6px',
-      height: '6px',
-      borderRadius: '50%',
-      backgroundColor: '#CCFF00',
-      opacity: 0.5,
-      margin: '0 0.6em',
-      flexShrink: 0,
-      verticalAlign: 'middle',
-    }} />
-  )
-}
+const TRACK = [...LOGOS, ...LOGOS]
 
 export default function TrustedMarquee() {
   return (
@@ -56,7 +34,7 @@ export default function TrustedMarquee() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.5 }}
         transition={{ duration: 0.5, ease: E }}
-        style={{ textAlign: 'center', marginBottom: '40px' }}
+        style={{ textAlign: 'center', marginBottom: '48px' }}
       >
         <span style={{
           fontSize: '0.68rem',
@@ -69,48 +47,42 @@ export default function TrustedMarquee() {
         </span>
       </motion.div>
 
-      {/* Row 1 — scrolls left */}
-      <div style={{ marginBottom: '12px' }}>
-        <div
-          className="marquee-track"
-          style={{ display: 'flex', whiteSpace: 'nowrap', willChange: 'transform' }}
-        >
-          {TRACK_1.map((item, i) => (
-            <span key={`r1-${i}`} style={{ display: 'inline-flex', alignItems: 'center' }}>
-              <span style={{
-                fontSize: 'clamp(1.8rem, 4.5vw, 4rem)',
-                fontWeight: 800,
-                letterSpacing: '-0.03em',
-                color: 'rgba(255,255,255,0.85)',
-                userSelect: 'none',
-              }}>
-                {item}
-              </span>
-              <Dot />
-            </span>
-          ))}
-        </div>
-      </div>
-
-      {/* Row 2 — scrolls right (reverse) */}
+      {/* Logo marquee */}
       <div>
         <div
-          className="marquee-track-reverse"
-          style={{ display: 'flex', whiteSpace: 'nowrap', willChange: 'transform' }}
+          className="marquee-track"
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '64px',
+            whiteSpace: 'nowrap',
+            willChange: 'transform',
+          }}
         >
-          {TRACK_2.map((item, i) => (
-            <span key={`r2-${i}`} style={{ display: 'inline-flex', alignItems: 'center' }}>
-              <span style={{
-                fontSize: 'clamp(1.8rem, 4.5vw, 4rem)',
-                fontWeight: 800,
-                letterSpacing: '-0.03em',
-                color: 'rgba(255,255,255,0.35)',
-                userSelect: 'none',
-              }}>
-                {item}
-              </span>
-              <Dot />
-            </span>
+          {TRACK.map((logo, i) => (
+            <div
+              key={`logo-${i}`}
+              style={{
+                flexShrink: 0,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                height: '48px',
+                opacity: 0.5,
+                filter: 'brightness(0) invert(1)',
+                transition: 'opacity 0.3s',
+              }}
+              onMouseEnter={(e) => { e.currentTarget.style.opacity = '0.9' }}
+              onMouseLeave={(e) => { e.currentTarget.style.opacity = '0.5' }}
+            >
+              <Image
+                src={logo.src}
+                alt={logo.alt}
+                width={logo.width}
+                height={48}
+                style={{ objectFit: 'contain', height: '48px', width: 'auto' }}
+              />
+            </div>
           ))}
         </div>
       </div>

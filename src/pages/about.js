@@ -1,7 +1,8 @@
 import { useRef } from 'react'
 import Head from 'next/head'
 import Link from 'next/link'
-import { motion, useScroll, useTransform, useInView } from 'framer-motion'
+import Image from 'next/image'
+import { motion, useScroll, useTransform } from 'framer-motion'
 import Navigation from '../components/Navigation'
 import Footer from '../components/Footer'
 import MagneticButton from '../components/MagneticButton'
@@ -73,9 +74,13 @@ export default function AboutPage() {
       <Head>
         <title>About — Quadri Ismail</title>
         <meta name="description" content="Senior Product Designer with 6+ years shipping SaaS across Fintech, GovTech, and AI. Based in Lagos, Nigeria." />
+        <meta property="og:title" content="About — Quadri Ismail" />
+        <meta property="og:description" content="Senior Product Designer with 6+ years shipping SaaS across Fintech, GovTech, and AI." />
+        <meta property="og:image" content="https://quadriismail.com/images/quadri.png" />
+        <meta name="twitter:card" content="summary_large_image" />
       </Head>
       <Navigation />
-      <main>
+      <main id="main-content">
         {/* ══════════════════════════════════════════════════════════
            HERO
            ══════════════════════════════════════════════════════════ */}
@@ -83,7 +88,7 @@ export default function AboutPage() {
           ref={heroRef}
           style={{
             backgroundColor: '#0F0F0F', paddingTop: '140px', paddingBottom: '100px',
-            position: 'relative', overflow: 'hidden', minHeight: '80vh',
+            position: 'relative', overflow: 'hidden', minHeight: '70vh',
             display: 'flex', alignItems: 'center',
           }}
         >
@@ -96,8 +101,10 @@ export default function AboutPage() {
           }} />
 
           <motion.div style={{ y: heroY, opacity: heroOpacity, width: '100%', position: 'relative', zIndex: 1 }} className="wrap">
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '80px', alignItems: 'center' }}>
-              {/* Left — text */}
+            <div style={{
+              display: 'grid', gridTemplateColumns: '1fr 320px',
+              gap: '64px', alignItems: 'center',
+            }} className="about-hero-grid">
               <div>
                 <motion.div
                   initial={{ opacity: 0, y: 12 }}
@@ -133,7 +140,7 @@ export default function AboutPage() {
                   transition={{ duration: 0.6, delay: 0.35, ease: E }}
                   style={{
                     fontSize: '1.08rem', color: '#666', lineHeight: 1.8,
-                    maxWidth: '480px', marginBottom: '40px',
+                    maxWidth: '560px', marginBottom: '40px',
                   }}
                 >
                   Senior Product Designer based in Lagos, Nigeria. 6+ years turning
@@ -145,41 +152,34 @@ export default function AboutPage() {
                   initial={{ opacity: 0, y: 16 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: 0.45, ease: E }}
-                  style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}
                 >
-                  <MagneticButton href="mailto:quadrihorlar@gmail.com" variant="primary">
+                  <MagneticButton href="mailto:me@quadriismail.com" variant="primary">
                     Get in touch
-                  </MagneticButton>
-                  <MagneticButton href="/quadri-ismail-portfolio.pdf" variant="outline-light" target="_blank">
-                    Download Portfolio ↓
                   </MagneticButton>
                 </motion.div>
               </div>
 
-              {/* Right — photo placeholder */}
+              {/* Profile image */}
               <motion.div
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.8, delay: 0.3, ease: E }}
+                style={{
+                  position: 'relative',
+                  width: '100%',
+                  aspectRatio: '3 / 4',
+                  borderRadius: '20px',
+                  overflow: 'hidden',
+                }}
               >
-                <div style={{
-                  backgroundColor: '#1a1a1a', borderRadius: '24px',
-                  aspectRatio: '4/5', display: 'flex', alignItems: 'center',
-                  justifyContent: 'center', position: 'relative', overflow: 'hidden',
-                  border: '1px solid rgba(255,255,255,0.06)',
-                }}>
-                  <div style={{
-                    position: 'absolute', inset: 0,
-                    background: 'radial-gradient(ellipse at 40% 60%, rgba(19,73,1,0.3) 0%, transparent 65%)',
-                  }} />
-                  <span style={{
-                    fontSize: '0.72rem', fontWeight: 600,
-                    color: 'rgba(255,255,255,0.2)', textTransform: 'uppercase',
-                    letterSpacing: '0.1em', position: 'relative',
-                  }}>
-                    Add photo: /public/images/quadri.jpg
-                  </span>
-                </div>
+                <Image
+                  src="/images/quadri.png"
+                  alt="Quadri Ismail — Senior Product Designer"
+                  fill
+                  sizes="320px"
+                  style={{ objectFit: 'cover' }}
+                  priority
+                />
               </motion.div>
             </div>
           </motion.div>
@@ -189,63 +189,38 @@ export default function AboutPage() {
            VIDEO INTRO
            ══════════════════════════════════════════════════════════ */}
         <section style={{ backgroundColor: '#f5f5f3', padding: '100px 0' }}>
-          <div className="wrap">
-            <RevealText>
-              <span style={{
-                fontSize: '0.72rem', fontWeight: 600, color: '#aaa',
-                textTransform: 'uppercase', letterSpacing: '0.12em',
-                display: 'block', marginBottom: '14px',
-              }}>
-                Introduction
-              </span>
-            </RevealText>
-            <RevealText delay={0.06}>
-              <h2 style={{
-                fontSize: 'clamp(1.8rem, 3.5vw, 2.8rem)', fontWeight: 800,
-                color: '#0F0F0F', letterSpacing: '-0.04em', lineHeight: 1.1,
-                marginBottom: '48px',
-              }}>
-                Meet Quadri — in 60 seconds
-              </h2>
-            </RevealText>
-
+          <div className="wrap" style={{ maxWidth: '800px' }}>
             <FadeUp>
               <div style={{
-                backgroundColor: '#1a1a1a', borderRadius: '24px',
-                aspectRatio: '16/9', display: 'flex', alignItems: 'center',
-                justifyContent: 'center', position: 'relative', overflow: 'hidden',
-                border: '1px solid rgba(0,0,0,0.08)',
-                maxWidth: '900px',
+                position: 'relative',
+                width: '100%',
+                aspectRatio: '16 / 9',
+                borderRadius: '20px',
+                overflow: 'hidden',
+                backgroundColor: '#0F0F0F',
               }}>
-                {/* Play button overlay */}
-                <motion.div
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.95 }}
-                  transition={{ type: 'spring', stiffness: 400, damping: 25 }}
+                <video
+                  src="/videos/intro.mp4"
+                  controls
+                  playsInline
+                  preload="metadata"
+                  poster="/images/quadri.png"
                   style={{
-                    width: '80px', height: '80px', borderRadius: '50%',
-                    backgroundColor: 'rgba(255,255,255,0.1)', backdropFilter: 'blur(12px)',
-                    border: '1.5px solid rgba(255,255,255,0.2)',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center',
-                    cursor: 'pointer', position: 'relative', zIndex: 2,
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover',
+                    display: 'block',
                   }}
-                >
-                  <div style={{
-                    width: 0, height: 0,
-                    borderTop: '12px solid transparent',
-                    borderBottom: '12px solid transparent',
-                    borderLeft: '20px solid #fff',
-                    marginLeft: '4px',
-                  }} />
-                </motion.div>
-                <span style={{
-                  position: 'absolute', bottom: '24px', left: '24px',
-                  fontSize: '0.72rem', fontWeight: 600, color: 'rgba(255,255,255,0.25)',
-                  textTransform: 'uppercase', letterSpacing: '0.1em',
-                }}>
-                  Upload video: /public/videos/intro.mp4
-                </span>
+                />
               </div>
+            </FadeUp>
+            <FadeUp delay={0.1}>
+              <p style={{
+                fontSize: '0.85rem', color: '#888', textAlign: 'center',
+                marginTop: '16px', fontWeight: 500,
+              }}>
+                A quick intro to who I am and how I work
+              </p>
             </FadeUp>
           </div>
         </section>
@@ -302,7 +277,7 @@ export default function AboutPage() {
                 Design values
               </h3>
             </RevealText>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }} className="values-grid">
               {values.map((v, i) => (
                 <SpotlightCard key={v.title} padding="24px" borderRadius="16px" delay={i * 0.06}>
                   <h4 style={{ fontSize: '0.95rem', fontWeight: 700, color: '#0F0F0F', letterSpacing: '-0.01em', marginBottom: '8px' }}>
@@ -349,16 +324,14 @@ export default function AboutPage() {
                     gap: '24px', padding: '24px 0',
                     borderBottom: i < timeline.length - 1 ? '1px solid #e8e8e4' : 'none',
                   }}>
-                    <motion.span
-                      whileHover={{ color: '#134901' }}
-                      transition={{ duration: 0.2 }}
+                    <span
                       style={{
                         fontSize: '0.82rem', fontWeight: 800, color: '#ccc',
                         letterSpacing: '-0.01em', paddingTop: '2px',
                       }}
                     >
                       {t.year}
-                    </motion.span>
+                    </span>
                     <div>
                       <h3 style={{
                         fontSize: '1.02rem', fontWeight: 700, color: '#0F0F0F',
@@ -416,10 +389,8 @@ export default function AboutPage() {
                   </h3>
                   <div style={{ display: 'flex', flexWrap: 'wrap', gap: '7px' }}>
                     {s.items.map((item) => (
-                      <motion.span
+                      <span
                         key={item}
-                        whileHover={{ backgroundColor: '#eaeae6', y: -1 }}
-                        transition={{ duration: 0.15 }}
                         style={{
                           fontSize: '0.78rem', fontWeight: 600, color: '#555',
                           backgroundColor: '#f5f5f3', padding: '5px 12px',
@@ -427,7 +398,7 @@ export default function AboutPage() {
                         }}
                       >
                         {item}
-                      </motion.span>
+                      </span>
                     ))}
                   </div>
                 </SpotlightCard>
@@ -437,7 +408,7 @@ export default function AboutPage() {
         </section>
 
         {/* ══════════════════════════════════════════════════════════
-           DOWNLOAD & CTA
+           CTA
            ══════════════════════════════════════════════════════════ */}
         <section style={{ backgroundColor: '#0F0F0F', padding: '120px 0', position: 'relative' }}>
           <div aria-hidden style={{
@@ -454,7 +425,7 @@ export default function AboutPage() {
                 letterSpacing: '-0.04em', color: '#fff', lineHeight: 1.1,
                 marginBottom: '20px',
               }}>
-                Like what you see?
+                Let's work together
               </h2>
             </RevealText>
             <FadeUp delay={0.1}>
@@ -462,15 +433,12 @@ export default function AboutPage() {
                 fontSize: '1.05rem', color: '#555', lineHeight: 1.8,
                 marginBottom: '40px',
               }}>
-                Download my portfolio PDF for a comprehensive overview of my work,
-                process, and impact. Or reach out directly — I'd love to chat.
+                I'm open to senior design roles and consulting engagements,
+                remote or hybrid. If you're building something complex, let's talk.
               </p>
             </FadeUp>
-            <FadeUp delay={0.2} style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}>
-              <MagneticButton href="/quadri-ismail-portfolio.pdf" variant="primary" size="lg">
-                Download Portfolio PDF ↓
-              </MagneticButton>
-              <MagneticButton href="mailto:quadrihorlar@gmail.com" variant="outline-light" size="lg">
+            <FadeUp delay={0.2}>
+              <MagneticButton href="mailto:me@quadriismail.com" variant="primary" size="lg">
                 Get in touch →
               </MagneticButton>
             </FadeUp>

@@ -228,7 +228,7 @@ export default function Hero() {
             transition={{ duration: 0.7, delay: 0.75, ease: E }}
             style={{ marginTop: '52px', display: 'flex', gap: '14px', flexWrap: 'wrap', alignItems: 'center' }}
           >
-            <MagneticButton href="mailto:quadrihorlar@gmail.com" variant="primary">
+            <MagneticButton href="mailto:me@quadriismail.com" variant="primary">
               Book a consultation
             </MagneticButton>
             <MagneticButton href="#work" variant="outline">

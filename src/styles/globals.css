@@ -26,7 +26,7 @@ html {
 }
 
 body {
-  font-family: var(--font-dm-sans), 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: var(--font-geist-sans), 'Geist', -apple-system, BlinkMacSystemFont, sans-serif;
   background-color: #f5f5f3;
   color: #0F0F0F;
   line-height: 1.6;
@@ -38,6 +38,7 @@ body {
 *:focus-visible {
   outline: 2px solid #134901;
   outline-offset: 3px;
+  border-radius: 4px;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -53,7 +54,10 @@ body {
 .wrap {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 0 24px;
+  padding: 0 20px;
+}
+@media (min-width: 640px) {
+  .wrap { padding: 0 32px; }
 }
 @media (min-width: 768px) {
   .wrap { padding: 0 48px; }
@@ -101,7 +105,7 @@ body {
   pointer-events: none;
 }
 
-/* ── Responsive grids ───────────────────────────────────────── */
+/* ── Responsive — mobile first ──────────────────────────────── */
 @media (max-width: 767px) {
   .cs-grid {
     grid-template-columns: 1fr !important;
@@ -111,13 +115,44 @@ body {
   }
   .case-study-body {
     grid-template-columns: 1fr !important;
+    gap: 32px !important;
+  }
+  .project-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .services-row {
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+  }
+  .about-grid {
+    grid-template-columns: 1fr !important;
+    gap: 48px !important;
+  }
+  .about-hero-grid {
+    grid-template-columns: 1fr !important;
+    gap: 40px !important;
+  }
+  .values-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Reduce section padding on mobile */
+  section {
+    padding-top: 80px !important;
+    padding-bottom: 80px !important;
+  }
+
+  /* Footer grid on mobile */
+  footer .wrap > div:first-child {
+    padding-top: 80px !important;
+    padding-bottom: 64px !important;
   }
 }
 
-/* ── Solution feature grid responsive ───────────────────────── */
-@media (max-width: 600px) {
-  .case-study-body div[style*="gridTemplateColumns: '1fr 1fr'"] {
-    grid-template-columns: 1fr !important;
+/* ── Tablet adjustments ─────────────────────────────────────── */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .project-grid {
+    grid-template-columns: 1fr 1fr !important;
   }
 }
 
@@ -127,7 +162,21 @@ body {
   color: #0F0F0F;
 }
 
-/* ── Horizontal scroll section ──────────────────────────────── */
-.horizontal-scroll-section {
-  position: relative;
+/* ── Skip link for a11y ─────────────────────────────────────── */
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 16px;
+  z-index: 10000;
+  padding: 12px 24px;
+  background-color: #134901;
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.875rem;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: top 0.2s;
+}
+.skip-link:focus {
+  top: 16px;
 }

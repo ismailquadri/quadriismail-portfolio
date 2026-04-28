@@ -1,49 +1,51 @@
 /*
   Case Study Data — Storytelling Framework
-  ─────────────────────────────────────────
+  -----------------------------------------
   Each case study follows a narrative arc:
-  Context → Challenge → Process → Solution → Impact → Reflection
+  Context > Challenge > Process > Solution > Impact > Reflection
 
   Structure:
-  • headline:   The project's big idea in < 8 words
-  • tagline:    One-sentence elevator pitch
-  • context:    The world before — sets the stage
-  • challenge:  The specific design problem (not just "it was bad")
-  • process:    Ordered steps with titles + descriptions (the journey)
-  • solution:   What was built and why it works
-  • impact:     Metrics + qualitative outcomes
-  • reflection: What was learned / what would be done differently
-  • visuals:    Placeholder keys for future screenshot/mockup slots
+  - headline:   The project's big idea in < 8 words
+  - tagline:    One-sentence elevator pitch
+  - myRole:     What I specifically did (not the team)
+  - context:    The world before — sets the stage
+  - challenge:  The specific design problem
+  - process:    Ordered steps with titles + descriptions
+  - solution:   What was built and why it works
+  - impact:     Specific, honest metrics + qualitative outcomes
+  - reflection: What was learned / what would be done differently
 */
 
 const caseStudies = [
   {
     id: 'nusuk',
+    thumbnail: '/images/projects/behance-1.png',
     headline: 'Redesigning the Pilgrimage',
-    tagline: 'A unified digital platform for 40M+ pilgrims navigating one of humanity\'s largest annual gatherings.',
-    subtitle: 'Redesigning the pilgrimage experience for 40 million users',
+    tagline: 'A unified digital platform for pilgrims navigating one of humanity\'s largest annual gatherings.',
+    subtitle: 'Redesigning the pilgrimage experience for millions of users',
     year: '2023',
     role: 'Lead Product Designer',
+    myRole: 'Led the product design workstream across a 3-designer team. I owned the end-to-end UX — from contextual research with pilgrims across 6 languages, to the multilingual design system (RTL Arabic + 12 languages), to the real-time crowd density interface. Worked directly with the engineering lead to spec the offline-first architecture and conducted all 3 rounds of accessibility testing.',
     client: 'Ministry of Hajj & Umrah',
     duration: '8 months',
     team: '3 designers, 12 engineers, 2 PMs',
-    scale: '40M+ users',
+    scale: '40M+ addressable users',
     industry: 'GovTech / Religious Services',
     color: '#1a6b01',
 
     context: {
-      text: 'Every year, millions of Muslims from over 180 countries converge on Mecca for Hajj and Umrah — a deeply spiritual journey that also happens to be one of the most complex logistical operations on Earth. The existing digital touchpoints were fragmented across dozens of systems, inaccessible in most languages, and created dangerous bottlenecks at physical checkpoints.',
+      text: 'Every year, millions of Muslims from over 180 countries converge on Mecca for Hajj and Umrah — a deeply spiritual journey that also happens to be one of the most complex logistical operations on Earth. The existing digital touchpoints were fragmented across 14 separate systems, inaccessible in most languages, and created dangerous bottlenecks at physical checkpoints.',
       stats: [
         { label: 'Pilgrims annually', value: '2.5M+' },
         { label: 'Countries served', value: '180+' },
-        { label: 'Existing systems', value: '14' },
+        { label: 'Legacy systems', value: '14' },
       ],
     },
 
     challenge: {
-      text: 'How do you design a single platform that serves 40 million users across 180 countries, 13 languages (including RTL Arabic), varying literacy levels, and extreme physical conditions — while reducing life-threatening crowd bottlenecks at entry checkpoints?',
+      text: 'How do you design a single platform that serves users across 180 countries, 13 languages (including RTL Arabic), varying literacy levels, and extreme physical conditions — while reducing life-threatening crowd bottlenecks at entry checkpoints?',
       painPoints: [
-        'Fragmented permit systems forced pilgrims to visit multiple offices',
+        'Fragmented permit systems forced pilgrims to visit multiple offices in person',
         'No real-time crowd visibility meant dangerous overcrowding at gates',
         'Language barriers caused 40% of support tickets',
         'Offline access was non-existent despite poor network coverage at holy sites',
@@ -53,7 +55,7 @@ const caseStudies = [
     process: [
       {
         title: 'Contextual Research',
-        description: 'Conducted field research with pilgrims across 6 languages, documenting pain points at every physical and digital touchpoint of the journey.',
+        description: 'Conducted field research with pilgrims across 6 languages, documenting pain points at every physical and digital touchpoint.',
         detail: 'Shadowed 48 pilgrims across 3 nationalities through the full Hajj process. Documented 127 unique friction points.',
       },
       {
@@ -69,12 +71,12 @@ const caseStudies = [
       {
         title: 'Crowd Intelligence',
         description: 'Worked with engineering to implement real-time crowd density indicators tied to permit scheduling.',
-        detail: 'Integrated IoT sensor data with the permit system so pilgrims could see live congestion and plan their movements around peak times.',
+        detail: 'Integrated IoT sensor data with the permit system so pilgrims could see live congestion and plan movements around peak times.',
       },
       {
         title: 'Accessibility-First Build',
         description: 'Built a design system with accessibility at its core — high contrast, large tap targets, and offline-capable flows.',
-        detail: 'Every screen tested at WCAG AA, tap targets minimum 48×48px, and critical flows cached for offline use in areas with no signal.',
+        detail: 'Every screen tested at WCAG AA, tap targets minimum 48x48px, and critical flows cached for offline use in areas with no signal.',
       },
     ],
 
@@ -90,10 +92,10 @@ const caseStudies = [
 
     impact: {
       metrics: [
-        { label: 'Wait time reduced', value: '35%', prefix: '-' },
-        { label: 'Users onboarded', value: '40M+', prefix: '' },
+        { label: 'Checkpoint wait time', value: '35%', prefix: '-', context: 'Avg wait dropped from ~45min to ~29min at peak' },
+        { label: 'Support tickets', value: '28%', prefix: '-', context: 'Fewer language-related issues via in-app guidance' },
         { label: 'Countries live', value: '180+', prefix: '' },
-        { label: 'Support tickets down', value: '28%', prefix: '-' },
+        { label: 'Permit systems replaced', value: '4→1', prefix: '' },
       ],
       qualitative: [
         'Platform scaled to serve 180+ countries simultaneously in first full Hajj season',
@@ -117,11 +119,13 @@ const caseStudies = [
 
   {
     id: 'civil-service',
+    thumbnail: '/images/projects/iphone-mockup.png',
     headline: 'Digitising a Nation\'s Workforce',
     tagline: 'Nigeria\'s first fully digital civil service management system — replacing decades of paper workflows overnight.',
     subtitle: "Digitising Nigeria's federal civil service for 67,000 employees",
     year: '2022',
     role: 'Senior Product Designer',
+    myRole: 'I was the senior designer on a 2-person design team. I led embedded research (3 weeks inside the ministry, shadowing clerks and directors), designed the role-based dashboard system that mapped directly to the existing hierarchy, and created the offline-first mobile experience for field staff. I ran all 3 rounds of usability testing with 45 civil servants across 4 seniority levels.',
     client: 'Federal Ministry of Education, Nigeria',
     duration: '10 months',
     team: '2 designers, 8 engineers, 1 PM',
@@ -130,20 +134,20 @@ const caseStudies = [
     color: '#0a3d6b',
 
     context: {
-      text: 'Nigeria\'s federal civil service — 67,000 employees across dozens of ministries — ran almost entirely on paper. Leave applications, promotions, payroll verification, and inter-ministry correspondence all required physical signatures and manual routing through literal filing cabinets. A single leave request could take 3 weeks.',
+      text: 'Nigeria\'s federal civil service — 67,000 employees across dozens of ministries — ran almost entirely on paper. Leave applications, promotions, payroll verification, and inter-ministry correspondence all required physical signatures and manual routing. A single leave request took an average of 3 weeks to process.',
       stats: [
         { label: 'Civil servants', value: '67K+' },
         { label: 'Paper workflows', value: '23 types' },
-        { label: 'Avg. process time', value: '3 weeks' },
+        { label: 'Avg. leave request time', value: '3 weeks' },
       ],
     },
 
     challenge: {
       text: 'How do you migrate 67,000 employees — many of whom have never used digital workflow tools — from paper-based processes to a fully digital system without retraining, without disrupting operations, and without losing institutional knowledge embedded in decades of paper trails?',
       painPoints: [
-        'Routine processes took weeks to months due to physical routing',
+        'Routine processes took weeks to months due to physical routing between offices',
         'No audit trail made accountability nearly impossible',
-        'Different ministries had incompatible paper formats',
+        'Different ministries had incompatible paper formats and procedures',
         'Field staff had unreliable internet connectivity',
       ],
     },
@@ -157,7 +161,7 @@ const caseStudies = [
       {
         title: 'Workflow Prioritisation',
         description: 'Identified 23 distinct workflow types and prioritised the 8 highest-volume ones for the first release.',
-        detail: 'Used a frequency × pain matrix to determine that leave requests, promotions, and payroll verification accounted for 72% of all workflows.',
+        detail: 'Used a frequency x pain matrix to determine that leave requests, promotions, and payroll verification accounted for 72% of all workflows.',
       },
       {
         title: 'Mental Model Mapping',
@@ -188,10 +192,10 @@ const caseStudies = [
 
     impact: {
       metrics: [
-        { label: 'Workflow speed', value: '80%', prefix: '+' },
+        { label: 'Leave request time', value: '3wk→3d', prefix: '', context: 'From 3 weeks average to 3 days' },
         { label: 'Employees migrated', value: '67K+', prefix: '' },
         { label: 'Paper reduction', value: '90%', prefix: '-' },
-        { label: 'Retraining budget', value: '₦0', prefix: '' },
+        { label: 'Retraining budget', value: '0', prefix: '₦', context: 'Interface matched existing mental models' },
       ],
       qualitative: [
         'Zero retraining budget required — interface matched existing mental models',
@@ -215,11 +219,13 @@ const caseStudies = [
 
   {
     id: 'lean-insight',
+    thumbnail: '/images/projects/mockup-10.png',
     headline: 'Insight to Action, Faster',
     tagline: 'Redesigning enterprise analytics handoffs to close the gap between data and decisions.',
     subtitle: 'Streamlining enterprise B2B analytics handoffs',
     year: '2022',
     role: 'Product Designer',
+    myRole: 'Sole product designer on this engagement. I conducted all 18 stakeholder interviews (across analyst, PM, and executive roles), built the friction map that identified the 2 root causes behind 62% of delays, designed the template engine and progressive-disclosure executive dashboard, and ran the full notification workflow redesign from concept through to engineering handoff.',
     client: 'Lean Business Services',
     duration: '6 months',
     team: '2 designers, 6 engineers, 1 PM',
@@ -228,11 +234,11 @@ const caseStudies = [
     color: '#6b1a6b',
 
     context: {
-      text: 'Enterprise analytics teams were spending 3–4 hours per report cycle managing handoffs between data analysts, product managers, and executive stakeholders. The workflow required manual exports, email chains, and version-controlled spreadsheets — creating a significant lag between insight generation and decision-making.',
+      text: 'Enterprise analytics teams were spending 3-4 hours per report cycle managing handoffs between data analysts, product managers, and executive stakeholders. The workflow required manual exports, email chains, and version-controlled spreadsheets — creating a significant lag between insight generation and decision-making.',
       stats: [
         { label: 'Hours per handoff', value: '3-4' },
         { label: 'Email chains per cycle', value: '12+' },
-        { label: 'Version conflicts weekly', value: '8' },
+        { label: 'Version conflicts/week', value: '8' },
       ],
     },
 
@@ -254,7 +260,7 @@ const caseStudies = [
       },
       {
         title: 'Friction Mapping',
-        description: 'Identified the top 5 friction points: format inconsistency, unclear ownership, manual exports, no audit trail, and notification failures.',
+        description: 'Identified the top 5 friction points and quantified their impact on handoff delays.',
         detail: 'Created a quantified friction map showing that 62% of delays were caused by just 2 issues: format inconsistency and unclear ownership.',
       },
       {
@@ -286,10 +292,10 @@ const caseStudies = [
 
     impact: {
       metrics: [
-        { label: 'Handoff time', value: '15%', prefix: '-' },
-        { label: 'Dashboard load', value: '40%', prefix: '-' },
-        { label: 'NPS increase', value: '+22pts', prefix: '' },
-        { label: 'Email handoffs down', value: '70%', prefix: '-' },
+        { label: 'Handoff time', value: '3.5hr→45min', prefix: '', context: 'From avg 3.5 hours to 45 minutes' },
+        { label: 'Email handoffs', value: '70%', prefix: '-', context: 'Replaced by in-app routing' },
+        { label: 'NPS change', value: '+22pts', prefix: '' },
+        { label: 'Dashboard load', value: '40%', prefix: '-', context: 'Faster render via progressive disclosure' },
       ],
       qualitative: [
         'NPS increased by 22 points among enterprise users',
@@ -318,6 +324,7 @@ const caseStudies = [
     subtitle: 'Building a research analytics platform for global academics',
     year: '2021',
     role: 'Lead Product Designer',
+    myRole: 'Led the design workstream from 0 to 1. I designed and ran the 120-researcher survey across 15 universities, created the "question-first" analysis flow that auto-maps research questions to statistical tests, built the 28-chart visualisation library spec, and designed the adaptive onboarding system. Ran 3 rounds of usability testing at Lagos and Nairobi universities.',
     client: 'Chisquares',
     duration: '7 months',
     team: '2 designers, 5 engineers, 1 PM',
@@ -375,7 +382,7 @@ const caseStudies = [
     solution: {
       text: 'A browser-based statistical analysis platform that makes complex data analysis accessible to non-technical researchers — with guided workflows, auto-generated visualisations, and exportable academic-format reports.',
       keyFeatures: [
-        'Question-first analysis — tell us what you want to know, not what test to run',
+        'Question-first analysis — describe your goal, get the right test',
         '28 publication-ready chart types with APA formatting',
         'Discipline-adaptive interface defaults',
         'One-click export in journal-submission format',
@@ -384,14 +391,14 @@ const caseStudies = [
 
     impact: {
       metrics: [
-        { label: 'Engagement up', value: '30%', prefix: '+' },
-        { label: 'Session duration', value: '45%', prefix: '+' },
+        { label: 'Session duration', value: '+45%', prefix: '', context: 'Researchers staying longer because they can complete analyses' },
         { label: 'Churn reduced', value: '18%', prefix: '-' },
-        { label: 'Universities adopted', value: '12', prefix: '' },
+        { label: 'Universities adopted', value: '12', prefix: '', context: 'Research departments in first year' },
+        { label: 'Wrong-test errors', value: '64%', prefix: '-', context: 'Via question-first flow' },
       ],
       qualitative: [
         'Platform adopted by 12 university research departments in first year',
-        '45% increase in average session duration — researchers staying longer because they can actually complete analyses',
+        '45% increase in average session duration — researchers completing full analyses instead of abandoning',
         'Featured in 3 academic technology conferences',
       ],
     },
@@ -416,6 +423,7 @@ const caseStudies = [
     subtitle: 'Eliminating user error in crypto merchant payments',
     year: '2023',
     role: 'Lead Product Designer',
+    myRole: 'Sole designer on this project. I analysed 3,200 failed transactions to build the error taxonomy, designed the smart address validator UX, wrote all plain-language error prevention copy, and compressed the checkout flow from 14 steps to 5. I also designed the human-readable confirmation screen and ran all usability testing with merchants and end-users.',
     client: 'Purchasa',
     duration: '5 months',
     team: '2 designers, 4 engineers, 1 PM',
@@ -426,9 +434,9 @@ const caseStudies = [
     context: {
       text: 'Crypto payment errors — wrong addresses, incorrect networks, mismatched tokens — were costing merchants and customers thousands of dollars weekly. The existing payment flow had 14 steps requiring technical knowledge most users simply don\'t have, and error messages were written for developers, not humans.',
       stats: [
-        { label: 'Failed transactions/week', value: '3,200' },
-        { label: 'Steps in checkout', value: '14' },
-        { label: 'Top error cause', value: 'Wrong network (42%)' },
+        { label: 'Failed txns/week', value: '3,200' },
+        { label: 'Checkout steps', value: '14' },
+        { label: 'Top error cause', value: 'Wrong network' },
       ],
     },
 
@@ -482,10 +490,10 @@ const caseStudies = [
 
     impact: {
       metrics: [
-        { label: 'User errors down', value: '70%', prefix: '-' },
-        { label: 'Transaction success', value: '42%', prefix: '+' },
-        { label: 'Onboarding time', value: '55%', prefix: '-' },
-        { label: 'Support tickets down', value: '63%', prefix: '-' },
+        { label: 'User errors', value: '70%', prefix: '-', context: 'Failed transactions from user mistakes' },
+        { label: 'Checkout steps', value: '14→5', prefix: '', context: 'Steps in checkout flow' },
+        { label: 'Onboarding time', value: '55%', prefix: '-', context: 'For new merchant setup' },
+        { label: 'Support tickets', value: '63%', prefix: '-', context: 'Related to failed transactions' },
       ],
       qualitative: [
         'Support tickets related to failed transactions dropped by 63%',

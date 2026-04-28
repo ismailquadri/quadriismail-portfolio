@@ -32,8 +32,8 @@ const bgMap = {
   purchasa:        '#08212e',
 }
 
-/* ── Animated metric counter ────────────────────────────────────── */
-function MetricCounter({ value, label, prefix = '' }) {
+/* -- Animated metric counter -- */
+function MetricCounter({ value, label, prefix = '', context }) {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, amount: 0.5 })
   const [display, setDisplay] = useState(value)
@@ -58,23 +58,30 @@ function MetricCounter({ value, label, prefix = '' }) {
     <SpotlightCard padding="28px" borderRadius="16px">
       <div ref={ref} style={{ textAlign: 'center' }}>
         <div style={{
-          fontSize: '2.4rem', fontWeight: 800, letterSpacing: '-0.03em',
+          fontSize: '2rem', fontWeight: 800, letterSpacing: '-0.03em',
           lineHeight: 1, marginBottom: '8px', color: '#0F0F0F',
         }}>
           {prefix}{display}
         </div>
         <div style={{
           fontSize: '0.68rem', fontWeight: 700, textTransform: 'uppercase',
-          letterSpacing: '0.08em', color: '#aaa',
+          letterSpacing: '0.08em', color: '#aaa', marginBottom: context ? '8px' : 0,
         }}>
           {label}
         </div>
+        {context && (
+          <div style={{
+            fontSize: '0.75rem', color: '#999', lineHeight: 1.5, fontStyle: 'italic',
+          }}>
+            {context}
+          </div>
+        )}
       </div>
     </SpotlightCard>
   )
 }
 
-/* ── Chapter heading ────────────────────────────────────────────── */
+/* -- Chapter heading -- */
 function ChapterHead({ number, title, delay = 0 }) {
   return (
     <motion.div
@@ -106,7 +113,7 @@ function ChapterHead({ number, title, delay = 0 }) {
   )
 }
 
-/* ── Fade-up block ──────────────────────────────────────────────── */
+/* -- Fade-up block -- */
 function FadeUp({ children, delay = 0, style = {} }) {
   return (
     <motion.div
@@ -148,7 +155,7 @@ export default function CaseStudyPage({ study, next }) {
 
       <Navigation />
 
-      <main>
+      <main id="main-content">
         {/* ══════════════════════════════════════════════════════════
            CINEMATIC HERO
            ══════════════════════════════════════════════════════════ */}
@@ -222,7 +229,7 @@ export default function CaseStudyPage({ study, next }) {
                 <span style={{ fontSize: '0.72rem', color: 'rgba(255,255,255,0.4)', fontWeight: 500 }}>{study.year}</span>
               </motion.div>
 
-              {/* Headline — clip reveal with padding buffer */}
+              {/* Headline */}
               <div style={{ overflow: 'hidden', paddingBottom: '10px', marginBottom: '12px' }}>
                 <motion.h1
                   initial={{ y: '110%' }}
@@ -295,8 +302,26 @@ export default function CaseStudyPage({ study, next }) {
               display: 'grid', gridTemplateColumns: '1fr 320px',
               gap: '72px', alignItems: 'start',
             }}>
-              {/* ── Main content ── */}
+              {/* -- Main content -- */}
               <div>
+
+                {/* My Role — NEW */}
+                {study.myRole && (
+                  <div style={{ marginBottom: '80px' }}>
+                    <ChapterHead number="00" title="My Role" />
+                    <FadeUp>
+                      <p style={{
+                        fontSize: '1.05rem', color: '#444', lineHeight: 1.85,
+                        padding: '24px 28px',
+                        backgroundColor: '#fff',
+                        borderRadius: '14px',
+                        border: '1px solid rgba(0,0,0,0.06)',
+                      }}>
+                        {study.myRole}
+                      </p>
+                    </FadeUp>
+                  </div>
+                )}
 
                 {/* Chapter 1: Context */}
                 <div style={{ marginBottom: '80px' }}>
@@ -320,19 +345,6 @@ export default function CaseStudyPage({ study, next }) {
                       </SpotlightCard>
                     ))}
                   </div>
-
-                  {/* Visual placeholder */}
-                  <FadeUp delay={0.1} style={{ marginTop: '32px' }}>
-                    <div style={{
-                      backgroundColor: '#e8e8e4', borderRadius: '16px', height: '240px',
-                      display: 'flex', alignItems: 'center', justifyContent: 'center',
-                      border: '1px dashed #d0d0cc',
-                    }}>
-                      <span style={{ fontSize: '0.72rem', fontWeight: 600, color: '#bbb', textTransform: 'uppercase', letterSpacing: '0.1em' }}>
-                        Context visual / screenshot
-                      </span>
-                    </div>
-                  </FadeUp>
                 </div>
 
                 {/* Chapter 2: The Challenge */}
@@ -384,7 +396,7 @@ export default function CaseStudyPage({ study, next }) {
                       {study.solution.text}
                     </p>
                   </FadeUp>
-                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }} className="values-grid">
                     {study.solution.keyFeatures.map((f, i) => (
                       <SpotlightCard key={i} padding="20px" borderRadius="14px" delay={i * 0.06}>
                         <div style={{ display: 'flex', gap: '12px', alignItems: 'flex-start' }}>
@@ -394,21 +406,6 @@ export default function CaseStudyPage({ study, next }) {
                       </SpotlightCard>
                     ))}
                   </div>
-
-                  {/* Solution visuals placeholder */}
-                  <FadeUp delay={0.1} style={{ marginTop: '32px', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
-                    {[1, 2].map((n) => (
-                      <div key={n} style={{
-                        backgroundColor: '#e8e8e4', borderRadius: '16px', height: '200px',
-                        display: 'flex', alignItems: 'center', justifyContent: 'center',
-                        border: '1px dashed #d0d0cc',
-                      }}>
-                        <span style={{ fontSize: '0.72rem', fontWeight: 600, color: '#bbb', textTransform: 'uppercase', letterSpacing: '0.1em' }}>
-                          Solution mockup {n}
-                        </span>
-                      </div>
-                    ))}
-                  </FadeUp>
                 </div>
 
                 {/* Chapter 5: Impact */}
@@ -420,7 +417,7 @@ export default function CaseStudyPage({ study, next }) {
                     gap: '12px', marginBottom: '32px',
                   }}>
                     {study.impact.metrics.map((m) => (
-                      <MetricCounter key={m.label} value={m.value} label={m.label} prefix={m.prefix} />
+                      <MetricCounter key={m.label} value={m.value} label={m.label} prefix={m.prefix} context={m.context} />
                     ))}
                   </div>
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
@@ -468,7 +465,7 @@ export default function CaseStudyPage({ study, next }) {
                 </div>
               </div>
 
-              {/* ── Sticky sidebar ── */}
+              {/* -- Sticky sidebar -- */}
               <div style={{ position: 'sticky', top: '88px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
                 <SpotlightCard padding="28px" borderRadius="16px">
                   <p style={{ fontSize: '0.68rem', fontWeight: 700, color: '#aaa', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '12px' }}>Scale</p>
@@ -480,22 +477,20 @@ export default function CaseStudyPage({ study, next }) {
                   <p style={{ fontSize: '0.68rem', fontWeight: 700, color: '#aaa', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '16px' }}>Tools</p>
                   <div style={{ display: 'flex', flexWrap: 'wrap', gap: '7px' }}>
                     {study.tools.map((t) => (
-                      <motion.span
+                      <span
                         key={t}
-                        whileHover={{ backgroundColor: '#eaeae6' }}
-                        transition={{ duration: 0.15 }}
                         style={{
                           fontSize: '0.78rem', fontWeight: 600, color: '#555',
                           backgroundColor: '#f5f5f3', padding: '5px 12px', borderRadius: '100px',
                         }}
                       >
                         {t}
-                      </motion.span>
+                      </span>
                     ))}
                   </div>
                 </SpotlightCard>
 
-                <MagneticButton href="mailto:quadrihorlar@gmail.com" variant="primary">
+                <MagneticButton href="mailto:me@quadriismail.com" variant="primary">
                   Work with Quadri →
                 </MagneticButton>
               </div>
@@ -543,7 +538,7 @@ export default function CaseStudyPage({ study, next }) {
   )
 }
 
-/* ── Process step — expandable card ─────────────────────────────── */
+/* -- Process step — expandable card -- */
 function ProcessStep({ step, index }) {
   const [expanded, setExpanded] = useState(false)
 

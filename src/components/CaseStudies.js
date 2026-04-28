@@ -49,7 +49,7 @@ export default function CaseStudies() {
           </motion.div>
 
           <motion.a
-            href="mailto:quadrihorlar@gmail.com"
+            href="mailto:me@quadriismail.com"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}

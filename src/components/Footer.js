@@ -1,31 +1,10 @@
 import { useState, useEffect } from 'react'
+
 import Link from 'next/link'
-import { motion, useInView } from 'framer-motion'
-import { useRef } from 'react'
+import { motion } from 'framer-motion'
 
 const E = [0.22, 1, 0.36, 1]
 
-/* Split text into individual characters for staggered animation */
-function SplitText({ text, className }) {
-  const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, amount: 0.3 })
-
-  return (
-    <span ref={ref} style={{ display: 'inline-flex', flexWrap: 'wrap' }}>
-      {text.split('').map((char, i) => (
-        <motion.span
-          key={i}
-          initial={{ y: '120%', opacity: 0 }}
-          animate={isInView ? { y: 0, opacity: 1 } : {}}
-          transition={{ duration: 0.6, delay: i * 0.02, ease: E }}
-          style={{ display: 'inline-block', whiteSpace: char === ' ' ? 'pre' : 'normal' }}
-        >
-          {char}
-        </motion.span>
-      ))}
-    </span>
-  )
-}
 
 /* Lagos timezone clock */
 function LagosClock() {
@@ -73,7 +52,7 @@ export default function Footer() {
           {/* Giant animated text */}
           <div style={{ overflow: 'hidden' }}>
             <motion.a
-              href="mailto:quadrihorlar@gmail.com"
+              href="mailto:me@quadriismail.com"
               whileHover={{ color: '#CCFF00' }}
               transition={{ duration: 0.3 }}
               style={{
@@ -86,7 +65,7 @@ export default function Footer() {
                 textDecoration: 'none',
               }}
             >
-              <SplitText text="Have a project? →" />
+              Have a project? →
             </motion.a>
           </div>
 
@@ -99,7 +78,7 @@ export default function Footer() {
             style={{ marginTop: '48px', display: 'flex', gap: '20px', flexWrap: 'wrap', alignItems: 'center' }}
           >
             <motion.a
-              href="mailto:quadrihorlar@gmail.com"
+              href="mailto:me@quadriismail.com"
               whileHover={{ backgroundColor: '#fff', color: '#0A0A0A' }}
               whileTap={{ scale: 0.97 }}
               transition={{ duration: 0.2 }}
@@ -111,7 +90,7 @@ export default function Footer() {
                 display: 'inline-block',
               }}
             >
-              quadrihorlar@gmail.com
+              me@quadriismail.com
             </motion.a>
             {['LinkedIn', 'Behance'].map((label) => (
               <motion.a
@@ -161,21 +140,20 @@ export default function Footer() {
           </motion.div>
 
           <FooterLinks title="Work" delay={0.06} links={[
-            { l: 'Nusuk', h: '/case-study/nusuk' },
-            { l: 'Civil Service Reform', h: '/case-study/civil-service' },
-            { l: 'Lean Insight + AXN', h: '/case-study/lean-insight' },
-            { l: 'Chisquares', h: '/case-study/chisquares' },
-            { l: 'Purchasa', h: '/case-study/purchasa' },
+            { l: 'Redesigning the Pilgrimage', h: '/case-study/nusuk' },
+            { l: 'Digitising a Nation\'s Workforce', h: '/case-study/civil-service' },
+            { l: 'Insight to Action, Faster', h: '/case-study/lean-insight' },
+            { l: 'Research Without the Learning Curve', h: '/case-study/chisquares' },
+            { l: 'Making Crypto Payments Human', h: '/case-study/purchasa' },
           ]} />
 
           <FooterLinks title="Services" delay={0.12} links={[
             { l: 'Product Design', h: '/#services' },
             { l: 'Design Systems', h: '/#services' },
-            { l: 'Brand Mentorship', h: '/#services' },
           ]} />
 
           <FooterLinks title="Connect" delay={0.18} external links={[
-            { l: 'Email', h: 'mailto:quadrihorlar@gmail.com' },
+            { l: 'Email', h: 'mailto:me@quadriismail.com' },
             { l: 'LinkedIn', h: 'https://linkedin.com/in/quadriismail' },
             { l: 'Behance', h: 'https://behance.net/quadriismail' },
           ]} />

@@ -1,18 +1,10 @@
 import { useEffect, useRef, useState } from 'react'
-import { AnimatePresence, motion } from 'framer-motion'
+import { AnimatePresence, motion, MotionConfig } from 'framer-motion'
 import { useRouter } from 'next/router'
-import { DM_Sans } from 'next/font/google'
+import { GeistSans } from 'geist/font/sans'
 import Lenis from 'lenis'
 import 'lenis/dist/lenis.css'
 import '../styles/globals.css'
-import MagneticCursor from '../components/MagneticCursor'
-
-const dmSans = DM_Sans({
-  subsets: ['latin'],
-  variable: '--font-dm-sans',
-  display: 'swap',
-  weight: ['300', '400', '500', '600', '700', '800', '900'],
-})
 
 const E = [0.76, 0, 0.24, 1]
 const E2 = [0.22, 1, 0.36, 1]
@@ -48,8 +40,10 @@ export default function App({ Component, pageProps }) {
   const [isTransitioning, setIsTransitioning] = useState(false)
   const lenisRef = useRef(null)
 
-  /* ── Lenis smooth scroll ── */
+  /* ── Lenis smooth scroll (disabled for reduced-motion users) ── */
   useEffect(() => {
+    if (typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+
     const lenis = new Lenis({
       duration: 1.2,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -90,8 +84,8 @@ export default function App({ Component, pageProps }) {
   }, [router])
 
   return (
-    <div className={`${dmSans.variable} grain`}>
-      <MagneticCursor />
+    <MotionConfig reducedMotion="user">
+    <div className={`${GeistSans.variable} grain`}>
 
       {/* Wipe transition overlay */}
       <AnimatePresence>
@@ -149,5 +143,6 @@ export default function App({ Component, pageProps }) {
         </motion.div>
       </AnimatePresence>
     </div>
+    </MotionConfig>
   )
 }
