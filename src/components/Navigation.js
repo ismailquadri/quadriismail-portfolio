@@ -6,7 +6,7 @@ const E = [0.22, 1, 0.36, 1]
 
 const NAV_LINKS = [
   { label: 'Work', href: '/#work' },
-  { label: 'About', href: '/#about' },
+  { label: 'About', href: '/about' },
   { label: 'Services', href: '/#services' },
 ]
 

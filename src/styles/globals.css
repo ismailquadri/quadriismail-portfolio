@@ -114,6 +114,13 @@ body {
   }
 }
 
+/* ── Solution feature grid responsive ───────────────────────── */
+@media (max-width: 600px) {
+  .case-study-body div[style*="gridTemplateColumns: '1fr 1fr'"] {
+    grid-template-columns: 1fr !important;
+  }
+}
+
 /* ── Selection ──────────────────────────────────────────────── */
 ::selection {
   background-color: rgba(19, 73, 1, 0.15);

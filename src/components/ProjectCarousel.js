@@ -312,7 +312,7 @@ export default function ProjectCarousel() {
 
                           {/* Key metric */}
                           <div style={{ display: 'flex', gap: '16px' }}>
-                            {feature.metrics.slice(0, 2).map((m) => (
+                            {(feature.impact?.metrics || feature.metrics || []).slice(0, 2).map((m) => (
                               <div key={m.label}>
                                 <div style={{ fontSize: '1.2rem', fontWeight: 800, color: '#CCFF00', letterSpacing: '-0.03em', lineHeight: 1 }}>
                                   {m.value}

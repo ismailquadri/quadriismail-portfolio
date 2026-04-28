@@ -8,7 +8,8 @@
       "Exec(cat)",
       "Exec(npm install)",
       "Exec(node)",
-      "Exec(git commit)"
+      "Exec(git commit)",
+      "Exec(npm uninstall)"
     ]
   }
 }
