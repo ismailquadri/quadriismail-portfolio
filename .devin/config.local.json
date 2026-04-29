@@ -21,7 +21,11 @@
       "Exec(git status)",
       "Exec(git diff)",
       "Exec(git log)",
-      "Exec(git rm)"
+      "Exec(git rm)",
+      "Exec(find)",
+      "Exec(grep)",
+      "Exec(python3)",
+      "Exec(wc)"
     ]
   }
 }
