@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://appreciated-bear-590074.framer.app/sitemap.xml
+Sitemap: https://quadriismail.com/sitemap.xml
